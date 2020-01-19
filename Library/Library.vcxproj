@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C3BD2ACF-CC4C-4465-8426-B2568A1A3036}</ProjectGuid>
+    <RootNamespace>Library</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Temp\$(TargetName)\$(Platform)\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Temp\$(TargetName)\$(Platform)\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+      <ShaderType>Effect</ShaderType>
+      <ObjectFileOutput>$(OutDir)Content\Effects\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <Lib>
+      <AdditionalDependencies>$(SolutionDir)\External\Assimp\lib\$(Configuration)\assimp-vc120-mt.lib;</AdditionalDependencies>
+    </Lib>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)Content" "$(TargetDir)Content" /s /q /i /y
+copy "$(SolutionDir)External\Assimp\bin\$(Configuration)\assimp-vc120-mt.dll" "$(TargetDir)assimp-vc120-mt.dll"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)Src;$(ProjectDir)Includes;$(SolutionDir)Shared\Includes;$(SolutionDir)External\DirectXTK\Inc;$(SolutionDir)External\FX11\inc\;$(SolutionDir)External\Assimp\include;</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>$(SolutionDir)Shared\Includes\Precompiled.hpp</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>$(SolutionDir)Shared\Includes\Precompiled.hpp</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)Src;$(ProjectDir)Includes;$(SolutionDir)Shared\Includes;$(SolutionDir)External\DirectXTK\Inc;$(SolutionDir)External\FX11\inc\;$(SolutionDir)External\Assimp\include;</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>$(SolutionDir)Shared\Includes\Precompiled.hpp</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>$(SolutionDir)Shared\Includes\Precompiled.hpp</ForcedIncludeFiles>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Shared\Src\Precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Src\BloomComponent.cpp" />
+    <ClCompile Include="Src\BloomMaterial.cpp" />
+    <ClCompile Include="Src\BlurComponent.cpp" />
+    <ClCompile Include="Src\BlurMaterial.cpp" />
+    <ClCompile Include="Src\CameraComponent.cpp" />
+    <ClCompile Include="Src\ColorFilterComponent.cpp" />
+    <ClCompile Include="Src\ColorFilterMaterial.cpp" />
+    <ClCompile Include="Src\Component.cpp" />
+    <ClCompile Include="Src\LightingComponent.cpp" />
+    <ClCompile Include="Src\MeshComponent.cpp" />
+    <ClCompile Include="Src\PhongMaterial.cpp" />
+    <ClCompile Include="Src\Effect.cpp" />
+    <ClCompile Include="Src\EffectPass.cpp" />
+    <ClCompile Include="Src\EffectTechnique.cpp" />
+    <ClCompile Include="Src\EffectVariable.cpp" />
+    <ClCompile Include="src\DebugComponent.cpp" />
+    <ClCompile Include="Src\PostProcessingComponent.cpp" />
+    <ClCompile Include="Src\RenderTarget.cpp" />
+    <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\Timer.cpp" />
+    <ClCompile Include="Src\Material.cpp" />
+    <ClCompile Include="Src\Mesh.cpp" />
+    <ClCompile Include="Src\Model.cpp" />
+    <ClCompile Include="Src\ModelMaterial.cpp" />
+    <ClCompile Include="Src\PostProcessingMaterial.cpp" />
+    <ClCompile Include="Src\PipelineStateRestorer.cpp" />
+    <ClCompile Include="Src\SkyboxComponent.cpp" />
+    <ClCompile Include="Src\SkyboxMaterial.cpp" />
+    <ClCompile Include="Src\Texture2D.cpp" />
+    <ClCompile Include="Src\TextureCube.cpp" />
+    <ClCompile Include="Src\LookAtComponent.cpp" />
+    <ClCompile Include="Src\WASDComponent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Shared\Includes\Precompiled.hpp" />
+    <ClInclude Include="Includes\BloomComponent.hpp" />
+    <ClInclude Include="Includes\BloomMaterial.hpp" />
+    <ClInclude Include="Includes\BlurComponent.hpp" />
+    <ClInclude Include="Includes\BlurMaterial.hpp" />
+    <ClInclude Include="Includes\CameraComponent.hpp" />
+    <ClInclude Include="Includes\ColorFilterComponent.hpp" />
+    <ClInclude Include="Includes\ColorFilterMaterial.hpp" />
+    <ClInclude Include="Includes\DirectXTKIncludes.hpp" />
+    <ClInclude Include="Includes\Helpers.hpp" />
+    <ClInclude Include="includes\Component.hpp" />
+    <ClInclude Include="Includes\LightingComponent.hpp" />
+    <ClInclude Include="Includes\MeshComponent.hpp" />
+    <ClInclude Include="Includes\DirectionalLight.hpp" />
+    <ClInclude Include="Includes\NonCopyable.hpp" />
+    <ClInclude Include="Includes\PhongMaterial.hpp" />
+    <ClInclude Include="Includes\Effect.hpp" />
+    <ClInclude Include="Includes\EffectPass.hpp" />
+    <ClInclude Include="Includes\EffectTechnique.hpp" />
+    <ClInclude Include="Includes\EffectVariable.hpp" />
+    <ClInclude Include="includes\DebugComponent.hpp" />
+    <ClInclude Include="Includes\PostProcessingComponent.hpp" />
+    <ClInclude Include="Includes\RenderState.hpp" />
+    <ClInclude Include="Includes\RenderTarget.hpp" />
+    <ClInclude Include="includes\Engine.hpp" />
+    <ClInclude Include="includes\Timer.hpp" />
+    <ClInclude Include="Includes\Light.hpp" />
+    <ClInclude Include="Includes\Material.hpp" />
+    <ClInclude Include="Includes\Math.hpp" />
+    <ClInclude Include="Includes\Mesh.hpp" />
+    <ClInclude Include="Includes\Model.hpp" />
+    <ClInclude Include="Includes\ModelMaterial.hpp" />
+    <ClInclude Include="Includes\PointLight.hpp" />
+    <ClInclude Include="Includes\PostProcessingMaterial.hpp" />
+    <ClInclude Include="Includes\PipelineStateRestorer.hpp" />
+    <ClInclude Include="Includes\SkyboxComponent.hpp" />
+    <ClInclude Include="Includes\SkyboxMaterial.hpp" />
+    <ClInclude Include="Includes\SpotLight.hpp" />
+    <ClInclude Include="Includes\Texture2D.hpp" />
+    <ClInclude Include="Includes\TextureCube.hpp" />
+    <ClInclude Include="Includes\LookAtComponent.hpp" />
+    <ClInclude Include="Includes\WASDComponent.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Content\Effects\Bloom.fx" />
+    <FxCompile Include="Content\Effects\Blur.fx" />
+    <FxCompile Include="Content\Effects\ColorFilter.fx" />
+    <FxCompile Include="Content\Effects\Phong.fx" />
+    <FxCompile Include="Content\Effects\Skybox.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\External\DirectXTK\DirectXTK_Desktop_2019.vcxproj">
+      <Project>{e0b52ae7-e160-4d32-bf3f-910b785e5a8e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\External\FX11\Effects11_2017_Win10.vcxproj">
+      <Project>{df460eab-570d-4b50-9089-2e2fc801bf38}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

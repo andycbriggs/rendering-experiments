@@ -1,0 +1,9 @@
+[submodule "External/DirectXTK"]
+	path = External/DirectXTK
+	url = https://github.com/microsoft/DirectXTK.git
+[submodule "External/FX11"]
+	path = External/FX11
+	url = https://github.com/microsoft/FX11.git
+[submodule "External/DirectXMath"]
+	path = External/DirectXMath
+	url = https://github.com/microsoft/DirectXMath.git
