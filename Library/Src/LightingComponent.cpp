@@ -5,34 +5,34 @@
 #include "RenderState.hpp"
 
 LightingComponent::LightingComponent()
-	: Component()
+    : Component()
 {
-	mShadowMapRenderTarget.Initialise(1024, 1024);
-	mShadowMapRenderTarget.SetClearColor(Color(Colors::Black));
+    mShadowMapRenderTarget.Initialise(1024, 1024);
+    mShadowMapRenderTarget.SetClearColor(Color(Colors::Black));
 }
 
 void LightingComponent::OnBeginDraw(const RenderState& localRenderState)
 {
-	RenderState spotLightRenderState = localRenderState;
+    RenderState spotLightRenderState = localRenderState;
 
-	Matrix viewMatrix = Matrix::CreateTranslation(mSpotLight.mTranslation).Invert() * Matrix::CreateFromYawPitchRoll(mSpotLight.mDirection.x, mSpotLight.mDirection.y, mSpotLight.mDirection.z).Transpose();
-	Matrix projectionMatrix = Matrix::CreatePerspectiveFieldOfView(mSpotLight.mOuterAngle, 1.f, 0.001f, 10000.f);
-	Matrix viewProjectionMatrix = viewMatrix * projectionMatrix;
+    Matrix viewMatrix = Matrix::CreateTranslation(mSpotLight.mTranslation).Invert() * Matrix::CreateFromYawPitchRoll(mSpotLight.mDirection.x, mSpotLight.mDirection.y, mSpotLight.mDirection.z).Transpose();
+    Matrix projectionMatrix = Matrix::CreatePerspectiveFieldOfView(mSpotLight.mOuterAngle, 1.f, 0.001f, 10000.f);
+    Matrix viewProjectionMatrix = viewMatrix * projectionMatrix;
 
-	spotLightRenderState.viewProjectionMatrix = viewProjectionMatrix;
-	spotLightRenderState.worldViewProjectionMatrix = spotLightRenderState.worldMatrix * viewProjectionMatrix;
-	spotLightRenderState.cameraTranslation = mSpotLight.mTranslation;
+    spotLightRenderState.viewProjectionMatrix = viewProjectionMatrix;
+    spotLightRenderState.worldViewProjectionMatrix = spotLightRenderState.worldMatrix * viewProjectionMatrix;
+    spotLightRenderState.cameraTranslation = mSpotLight.mTranslation;
 
-	mShadowMapRenderTarget.Begin(spotLightRenderState);
+    mShadowMapRenderTarget.Begin(spotLightRenderState);
 
-	DrawChildren(spotLightRenderState);
+    DrawChildren(spotLightRenderState);
 
-	mShadowMapRenderTarget.End();
+    mShadowMapRenderTarget.End();
 }
 
 void LightingComponent::OnUpdateLocalRenderState(const RenderState& parentRenderState, RenderState& localRenderState)
 {
-	localRenderState.ambientLight = &mAmbientLight;
-	localRenderState.directionalLight = &mDirectionalLight;
-	localRenderState.pointLight = &mPointLight;
+    localRenderState.ambientLight = &mAmbientLight;
+    localRenderState.directionalLight = &mDirectionalLight;
+    localRenderState.pointLight = &mPointLight;
 }

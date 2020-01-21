@@ -13,8 +13,8 @@ namespace
     {
     public:
         OneTimeComInitialise() { 
-			CoInitializeEx(nullptr, COINITBASE_MULTITHREADED); 
-		}
+            CoInitializeEx(nullptr, COINITBASE_MULTITHREADED); 
+        }
     };
     static const OneTimeComInitialise oneTimeComInitialise;
 };
@@ -29,13 +29,13 @@ Texture2D::Texture2D(const string& filename)
     hr = mResource.As(&mTexture2D);
     ThrowIfFailed(hr, As);
 
-	D3D11_TEXTURE2D_DESC texture2DDesc = { 0 };
-	mTexture2D->GetDesc(&texture2DDesc);
+    D3D11_TEXTURE2D_DESC texture2DDesc = { 0 };
+    mTexture2D->GetDesc(&texture2DDesc);
 
-	mWidth = texture2DDesc.Width;
-	mHeight = texture2DDesc.Height;
+    mWidth = texture2DDesc.Width;
+    mHeight = texture2DDesc.Height;
 
-	SetDebugObjectName(mResource.Get(), "Texture2D");
+    SetDebugObjectName(mResource.Get(), "Texture2D");
 }
 
 Texture2D::Texture2D(UInt32 width, UInt32 height, Usage usage)
@@ -46,10 +46,10 @@ Texture2D::Texture2D(UInt32 width, UInt32 height, Usage usage)
     texture2DDesc.SampleDesc.Count = 1;
     texture2DDesc.SampleDesc.Quality = 0;
     texture2DDesc.Width = width;
-	texture2DDesc.MipLevels = 1; // Disable Mip-Mapping
+    texture2DDesc.MipLevels = 1; // Disable Mip-Mapping
 
-	mWidth = width;
-	mHeight = height;
+    mWidth = width;
+    mHeight = height;
 
     switch (usage)
     {
@@ -71,16 +71,16 @@ Texture2D::Texture2D(UInt32 width, UInt32 height, Usage usage)
         hr = Engine::Get()->Device()->CreateShaderResourceView(mTexture2D.Get(), nullptr, mShaderResourceView.ReleaseAndGetAddressOf());
         ThrowIfFailed(hr, CreateShaderResourceView);
     }
-	else
-	{
-		D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc = { };
-		shaderResourceViewDesc.Format = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
-		shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-		shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
-		shaderResourceViewDesc.Texture2D.MipLevels = -1;
-		hr = Engine::Get()->Device()->CreateShaderResourceView(mTexture2D.Get(), &shaderResourceViewDesc, mShaderResourceView.ReleaseAndGetAddressOf());
-		ThrowIfFailed(hr, CreateShaderResourceView);
-	}
+    else
+    {
+        D3D11_SHADER_RESOURCE_VIEW_DESC shaderResourceViewDesc = { };
+        shaderResourceViewDesc.Format = DXGI_FORMAT_R24_UNORM_X8_TYPELESS;
+        shaderResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+        shaderResourceViewDesc.Texture2D.MostDetailedMip = 0;
+        shaderResourceViewDesc.Texture2D.MipLevels = -1;
+        hr = Engine::Get()->Device()->CreateShaderResourceView(mTexture2D.Get(), &shaderResourceViewDesc, mShaderResourceView.ReleaseAndGetAddressOf());
+        ThrowIfFailed(hr, CreateShaderResourceView);
+    }
 
     hr = mTexture2D.As(&mResource);
     ThrowIfFailed(hr, As);
