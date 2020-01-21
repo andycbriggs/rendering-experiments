@@ -35,23 +35,23 @@ void SkyboxComponent::OnInitialise()
 
 void SkyboxComponent::OnDraw(const RenderState& renderState)
 {
-	PipelineStateRestorer pipelineStateRestorer(renderState.deviceContext);
+    PipelineStateRestorer pipelineStateRestorer(renderState.deviceContext);
 
-	renderState.deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    renderState.deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     const EffectPass* pass = mMaterial->GetCurrentTechnique()->GetPasses()[0].get();
     ID3D11InputLayout* inputLayout = mMaterial->GetInputLayout(pass);
-	renderState.deviceContext->IASetInputLayout(inputLayout);
+    renderState.deviceContext->IASetInputLayout(inputLayout);
 
-	mMaterial->SetWorldViewProjection(renderState.worldViewProjectionMatrix);
-	mMaterial->SetTexture(mTexture.get());
+    mMaterial->SetWorldViewProjection(renderState.worldViewProjectionMatrix);
+    mMaterial->SetTexture(mTexture.get());
 
-	
+    
 
     UInt32 stride = mMaterial->VertexSize();
     UInt32 offset = mMaterial->Offset();
-	renderState.deviceContext->IASetVertexBuffers(0, 1, mVertexBuffer.GetAddressOf(), &stride, &offset);
-	renderState.deviceContext->IASetIndexBuffer(mIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
+    renderState.deviceContext->IASetVertexBuffers(0, 1, mVertexBuffer.GetAddressOf(), &stride, &offset);
+    renderState.deviceContext->IASetIndexBuffer(mIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 
     pass->Apply(0, renderState.deviceContext);
-	renderState.deviceContext->DrawIndexed(mIndexCount, 0, 0);
+    renderState.deviceContext->DrawIndexed(mIndexCount, 0, 0);
 }

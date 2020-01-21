@@ -4,8 +4,8 @@
 
 struct TimerTime
 {
-	const double intervalTime;
-	const double totalTime;
+    const double intervalTime;
+    const double totalTime;
 };
 
 class Timer

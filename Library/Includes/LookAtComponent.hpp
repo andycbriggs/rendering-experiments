@@ -7,10 +7,10 @@ struct TimerTime;
 class LookAtComponent : public Component
 {
 public:
-	void OnUpdate(const TimerTime& time) override;
+    void OnUpdate(const TimerTime& time) override;
 
-	void SetLookAt(const Vector3& lookAt); // look at global position
+    void SetLookAt(const Vector3& lookAt); // look at global position
 
 private:
-	Vector3 mLookAt;
+    Vector3 mLookAt;
 };

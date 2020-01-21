@@ -23,7 +23,7 @@ public:
     virtual void CreateVertexBuffer(Mesh* mesh, ID3D11Buffer** vertexBuffer) = 0;
 
     EffectTechnique* GetCurrentTechnique() const;
-	void SetCurrentTechnique(const std::string& techniqueName);
+    void SetCurrentTechnique(const std::string& techniqueName);
 
     ID3D11InputLayout* GetInputLayout(const EffectPass* effectPass) const { return mInputLayouts.at(effectPass).Get(); }
 

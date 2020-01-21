@@ -48,18 +48,18 @@ void EffectVariable::SetValue(const Vector4& vector) const
 
 void EffectVariable::SetValue(const std::vector<float> vector) const
 {
-	ID3DX11EffectScalarVariable* scalarVariable = mVariable->AsScalar();
-	ThrowIfNullPointer(scalarVariable, AsScalar);
-	ThrowIfFalse(scalarVariable->IsValid(), IsValid);
-	scalarVariable->SetFloatArray(vector.data(), 0, (UInt32)vector.size());
+    ID3DX11EffectScalarVariable* scalarVariable = mVariable->AsScalar();
+    ThrowIfNullPointer(scalarVariable, AsScalar);
+    ThrowIfFalse(scalarVariable->IsValid(), IsValid);
+    scalarVariable->SetFloatArray(vector.data(), 0, (UInt32)vector.size());
 }
 
 void EffectVariable::SetValue(const std::vector<Vector2>& vector) const
 {
-	ID3DX11EffectVectorVariable* vectorVariable = mVariable->AsVector();
-	ThrowIfNullPointer(vectorVariable, AsVector);
-	ThrowIfFalse(vectorVariable->IsValid(), IsValid);
-	vectorVariable->SetFloatVectorArray((const float*)vector.data(), 0, (UInt32)vector.size());
+    ID3DX11EffectVectorVariable* vectorVariable = mVariable->AsVector();
+    ThrowIfNullPointer(vectorVariable, AsVector);
+    ThrowIfFalse(vectorVariable->IsValid(), IsValid);
+    vectorVariable->SetFloatVectorArray((const float*)vector.data(), 0, (UInt32)vector.size());
 }
 
 void EffectVariable::SetValue(ID3D11ShaderResourceView* resourceView) const

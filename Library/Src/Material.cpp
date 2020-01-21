@@ -22,10 +22,10 @@ void Material::CreateInputLayout(const string& techniqueName, const string& pass
 
 void Material::SetCurrentTechnique(const string& techniqueName)
 {
-	EffectTechnique* technique = mEffect->GetTechnique(techniqueName);
+    EffectTechnique* technique = mEffect->GetTechnique(techniqueName);
 
-	if (technique)
-		mCurrentTechnique = technique;
+    if (technique)
+        mCurrentTechnique = technique;
 }
 
 EffectTechnique* Material::GetCurrentTechnique() const

@@ -10,7 +10,7 @@ void CameraComponent::OnInitialise()
 
 void CameraComponent::OnUpdate(const TimerTime& time)
 {
-	UpdateViewMatrix();
+    UpdateViewMatrix();
 }
 
 void CameraComponent::OnWindowSizeChanged()
@@ -20,25 +20,25 @@ void CameraComponent::OnWindowSizeChanged()
 
 void CameraComponent::UpdateViewMatrix()
 {
-	Vector3 globalRotation = GetGlobalRotation();
-	mViewMatrix = Matrix::CreateTranslation(GetGlobalTranslation()).Invert() * Matrix::CreateFromYawPitchRoll(globalRotation.x, globalRotation.y, globalRotation.z).Transpose();
-	
-	UpdateViewProjectionMatrix();
+    Vector3 globalRotation = GetGlobalRotation();
+    mViewMatrix = Matrix::CreateTranslation(GetGlobalTranslation()).Invert() * Matrix::CreateFromYawPitchRoll(globalRotation.x, globalRotation.y, globalRotation.z).Transpose();
+    
+    UpdateViewProjectionMatrix();
 }
 
 void CameraComponent::UpdateProjectionMatrix()
 {
     mProjectionMatrix = Matrix::CreatePerspectiveFieldOfView(mFieldOfView, Engine::Get()->GetViewport().AspectRatio(), mNearPlaneDistance, mFarPlaneDistance);
 
-	UpdateViewProjectionMatrix();
+    UpdateViewProjectionMatrix();
 }
 
 void CameraComponent::UpdateViewProjectionMatrix()
 {
-	mViewProjectionMatrix = mViewMatrix * mProjectionMatrix;
+    mViewProjectionMatrix = mViewMatrix * mProjectionMatrix;
 }
 
 const Matrix& CameraComponent::GetViewProjectionMatrix() const
 {
-	return mViewProjectionMatrix;
+    return mViewProjectionMatrix;
 }

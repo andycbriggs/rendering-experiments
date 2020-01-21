@@ -14,11 +14,11 @@ public:
     Mesh(aiMesh* mesh);
 
     static std::shared_ptr<Mesh> CreatePlane();
-	static std::shared_ptr<Mesh> CreateCube();
-	static std::shared_ptr<Mesh> CreateUnwrappedCube();
-	static std::shared_ptr<Mesh> CreateUVSphere();
+    static std::shared_ptr<Mesh> CreateCube();
+    static std::shared_ptr<Mesh> CreateUnwrappedCube();
+    static std::shared_ptr<Mesh> CreateUVSphere();
 
-	void CreateIndexBuffer(ID3D11Device* device, ID3D11Buffer** indexBuffer);
+    void CreateIndexBuffer(ID3D11Device* device, ID3D11Buffer** indexBuffer);
 
     const std::vector<Vector3>& GetVertices() { return mVertices; }
     const std::vector<Vector3>& GetNormals() { return mNormals; }

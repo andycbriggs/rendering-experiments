@@ -11,29 +11,29 @@ struct RenderState;
 class BlurComponent : public PostProcessingComponent
 {
 public:
-	virtual void OnInitialise() override;
-	virtual void OnWindowSizeChanged() override;
-	virtual void OnDrawPostProcessing(const RenderState& renderState, const Texture2D* inputTexture) override;
+    virtual void OnInitialise() override;
+    virtual void OnWindowSizeChanged() override;
+    virtual void OnDrawPostProcessing(const RenderState& renderState, const Texture2D* inputTexture) override;
 
-	void SetBlurAmount(float blurAmount) { mBlurAmount = blurAmount; }
-
-private:
-	void DrawHorizontalBlur(const RenderState& renderState, const Texture2D* inputTexture);
-	void DrawVerticalBlur(const RenderState& renderState, const Texture2D* inputTexture);
-	void DrawCurrentBlurTechnique(const RenderState& renderState, const Texture2D* inputTexture);
-
-	void RecreateHorizontalRenderTarget();
-	void ReCalculateSampleOffsetsAndWeight(const UInt32 width, const UInt32 height);
+    void SetBlurAmount(float blurAmount) { mBlurAmount = blurAmount; }
 
 private:
-	float CalculateWeight(float x) const;
+    void DrawHorizontalBlur(const RenderState& renderState, const Texture2D* inputTexture);
+    void DrawVerticalBlur(const RenderState& renderState, const Texture2D* inputTexture);
+    void DrawCurrentBlurTechnique(const RenderState& renderState, const Texture2D* inputTexture);
 
-	float mBlurAmount = 4.f;
+    void RecreateHorizontalRenderTarget();
+    void ReCalculateSampleOffsetsAndWeight(const UInt32 width, const UInt32 height);
 
-	std::vector<float> mSampleWeights;
-	std::vector<Vector2> mHorizontalSampleOffsets;
-	std::vector<Vector2> mVerticalSampleOffsets;
+private:
+    float CalculateWeight(float x) const;
 
-	std::unique_ptr<RenderTarget> mHorizontalRenderTarget;
-	std::shared_ptr<BlurMaterial> mBlurMaterial;
+    float mBlurAmount = 4.f;
+
+    std::vector<float> mSampleWeights;
+    std::vector<Vector2> mHorizontalSampleOffsets;
+    std::vector<Vector2> mVerticalSampleOffsets;
+
+    std::unique_ptr<RenderTarget> mHorizontalRenderTarget;
+    std::shared_ptr<BlurMaterial> mBlurMaterial;
 };

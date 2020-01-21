@@ -5,5 +5,5 @@
 class ColorFilterMaterial : public PostProcessingMaterial
 {
 public:
-	void Initialise() override;
+    void Initialise() override;
 };

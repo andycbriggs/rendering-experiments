@@ -19,23 +19,23 @@ void DebugComponent::OnInitialise()
 void DebugComponent::OnUpdate(const TimerTime& time)
 {
     std::wostringstream wss;
-	wss << L"intervalTime: " << (round(time.intervalTime * 1000.f * 100.f) / 100.f) << L"ms" << std::endl
-		<< L"totalTime: " << (round(time.totalTime * 100.f) / 100.f) << L"s" << std::endl
-		<< L"fps: " << 1. / time.intervalTime << std::endl;
+    wss << L"intervalTime: " << (round(time.intervalTime * 1000.f * 100.f) / 100.f) << L"ms" << std::endl
+        << L"totalTime: " << (round(time.totalTime * 100.f) / 100.f) << L"s" << std::endl
+        << L"fps: " << 1. / time.intervalTime << std::endl;
 
-	wss << "width: " << Engine::Get()->GetViewport().width << ", height: " << Engine::Get()->GetViewport().height << std::endl;
+    wss << "width: " << Engine::Get()->GetViewport().width << ", height: " << Engine::Get()->GetViewport().height << std::endl;
 
-	/*const Camera* currentCamera = Engine::Get()->GetCurrentCamera();
+    /*const Camera* currentCamera = Engine::Get()->GetCurrentCamera();
 
-	wss << L"camera position " << currentCamera->GetGlobalTranslation() << std::endl;
-	wss << L"camera rotation " << currentCamera->GetGlobalRotation() << std::endl;*/
+    wss << L"camera position " << currentCamera->GetGlobalTranslation() << std::endl;
+    wss << L"camera rotation " << currentCamera->GetGlobalRotation() << std::endl;*/
 
     mText = wss.str();
 }
 
 void DebugComponent::OnEndDraw(const RenderState& renderState)
 {
-	PipelineStateRestorer pipelineStateRestorer(renderState.deviceContext);
+    PipelineStateRestorer pipelineStateRestorer(renderState.deviceContext);
 
     mSpriteBatch->Begin();
     mSpriteFont->DrawString(mSpriteBatch.get(), mText.c_str(), DirectX::XMFLOAT2(10,10));

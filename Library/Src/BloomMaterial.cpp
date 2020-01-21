@@ -12,21 +12,21 @@ using namespace std;
 
 void BloomMaterial::Initialise()
 {
-	mEffect = make_unique<Effect>(L"Content\\Effects\\Bloom.cso");
+    mEffect = make_unique<Effect>(L"Content\\Effects\\Bloom.cso");
 
-	// Create input layouts for all techniques
-	// TODO: Why not just do this for everything?
-	for (auto& technique : mEffect->GetTechniques())
-	{
-		for (auto& pass : technique->GetPasses())
-		{
-			CreateInputLayout(technique->GetName(), pass->GetName(), VertexPositionTexture::InputElements, VertexPositionTexture::InputElementCount);
-		}
-	}
+    // Create input layouts for all techniques
+    // TODO: Why not just do this for everything?
+    for (auto& technique : mEffect->GetTechniques())
+    {
+        for (auto& pass : technique->GetPasses())
+        {
+            CreateInputLayout(technique->GetName(), pass->GetName(), VertexPositionTexture::InputElements, VertexPositionTexture::InputElementCount);
+        }
+    }
 }
 
 void BloomMaterial::SetSceneTexture(const Texture2D* texture)
 {
-	EffectVariable* variable = mEffect->GetVariable("SceneTexture");
-	variable->SetValue(texture->GetShaderResourceView());
+    EffectVariable* variable = mEffect->GetVariable("SceneTexture");
+    variable->SetValue(texture->GetShaderResourceView());
 }

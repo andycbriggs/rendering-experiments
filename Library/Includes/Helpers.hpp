@@ -4,49 +4,49 @@
 // https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
 inline std::wstring toStdWString(const std::string& str)
 {
-	using convert_typeX = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_typeX, wchar_t> converterX;
+    using convert_typeX = std::codecvt_utf8<wchar_t>;
+    std::wstring_convert<convert_typeX, wchar_t> converterX;
 
-	return converterX.from_bytes(str);
+    return converterX.from_bytes(str);
 }
 
 inline std::string toStdString(const std::wstring& wstr)
 {
-	using convert_typeX = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_typeX, wchar_t> converterX;
+    using convert_typeX = std::codecvt_utf8<wchar_t>;
+    std::wstring_convert<convert_typeX, wchar_t> converterX;
 
-	return converterX.to_bytes(wstr);
+    return converterX.to_bytes(wstr);
 }
 
 // Windows error handling
 static std::wstring GetErrorString(DWORD errorCode)
 {
-	LPWSTR messageBuffer = nullptr;
+    LPWSTR messageBuffer = nullptr;
 
-	size_t size = FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-		NULL, errorCode, NULL, (LPWSTR)&messageBuffer, 0, NULL);
+    size_t size = FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+        NULL, errorCode, NULL, (LPWSTR)&messageBuffer, 0, NULL);
 
-	std::wstring message(messageBuffer, size);
+    std::wstring message(messageBuffer, size);
 
-	LocalFree(messageBuffer);
+    LocalFree(messageBuffer);
 
-	return message;
+    return message;
 }
 
 // Fatal error handlers
 #define ThrowIfFailed(hr, functionName) \
     if (FAILED(hr)) \
     { \
-		std::wstringstream ss; \
-		ss << L#functionName << L" failed (result: " << (long long)hr << L", error: " << GetErrorString(GetLastError()) << L", location: " << TEXT(__FUNCTION__) << L":" << __LINE__ << L")"; \
+        std::wstringstream ss; \
+        ss << L#functionName << L" failed (result: " << (long long)hr << L", error: " << GetErrorString(GetLastError()) << L", location: " << TEXT(__FUNCTION__) << L":" << __LINE__ << L")"; \
         throw std::runtime_error(toStdString(ss.str())); \
     }
 
 #define ThrowIfNull(hr, functionName) \
     if (hr == NULL) \
     { \
-		std::wstringstream ss; \
-		ss << L#functionName << L" failed (result: " << (long long)hr << L", error: " << GetErrorString(GetLastError()) << L", location: " << TEXT(__FUNCTION__) << L":" << __LINE__ << L")"; \
+        std::wstringstream ss; \
+        ss << L#functionName << L" failed (result: " << (long long)hr << L", error: " << GetErrorString(GetLastError()) << L", location: " << TEXT(__FUNCTION__) << L":" << __LINE__ << L")"; \
         throw std::runtime_error(toStdString(ss.str())); \
     }
 

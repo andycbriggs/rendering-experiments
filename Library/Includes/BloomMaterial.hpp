@@ -5,7 +5,7 @@
 class BloomMaterial : public PostProcessingMaterial
 {
 public:
-	void Initialise() override;
+    void Initialise() override;
 
-	void SetSceneTexture(const Texture2D* texture);
+    void SetSceneTexture(const Texture2D* texture);
 };

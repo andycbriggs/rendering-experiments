@@ -8,8 +8,8 @@
 class WASDComponent : public Component
 {
 public:
-	void OnUpdate(const TimerTime& time) override;
+    void OnUpdate(const TimerTime& time) override;
 
 private:
-	Mouse::ButtonStateTracker mMouseStateTracker;
+    Mouse::ButtonStateTracker mMouseStateTracker;
 };

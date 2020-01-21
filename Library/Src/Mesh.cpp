@@ -8,48 +8,48 @@ using namespace std;
 
 /*static*/ shared_ptr<Mesh> Mesh::CreatePlane()
 {
-	shared_ptr<Mesh> mesh = make_shared<Mesh>();
-	
+    shared_ptr<Mesh> mesh = make_shared<Mesh>();
+    
     mesh->mVertices = {
-		{ -0.5f,  0.5f,  0.f }, // 0
-		{  0.5f,  0.5f,  0.f }, // 1
-		{ -0.5f, -0.5f,  0.f }, // 2
-		{  0.5f, -0.5f,  0.f }, // 3
-		{ -0.5f,  0.5f,  0.f }, // 4
-		{  0.5f,  0.5f,  0.f }, // 5
-		{ -0.5f, -0.5f,  0.f }, // 6
-		{  0.5f, -0.5f,  0.f }, // 7
+        { -0.5f,  0.5f,  0.f }, // 0
+        {  0.5f,  0.5f,  0.f }, // 1
+        { -0.5f, -0.5f,  0.f }, // 2
+        {  0.5f, -0.5f,  0.f }, // 3
+        { -0.5f,  0.5f,  0.f }, // 4
+        {  0.5f,  0.5f,  0.f }, // 5
+        { -0.5f, -0.5f,  0.f }, // 6
+        {  0.5f, -0.5f,  0.f }, // 7
     };
 
-	// tl, tr, bl
-	// bl, tr, br
+    // tl, tr, bl
+    // bl, tr, br
     mesh->mIndices = {
-		0, 1, 2, // front
-		2, 1, 3,
-		6, 5, 4, // back
-		7, 5, 6,
+        0, 1, 2, // front
+        2, 1, 3,
+        6, 5, 4, // back
+        7, 5, 6,
     };
 
-	mesh->mNormals = {
-		Vector3::Backward,
-		Vector3::Backward,
-		Vector3::Backward,
-		Vector3::Backward,
-		Vector3::Forward,
-		Vector3::Forward,
-		Vector3::Forward,
-		Vector3::Forward,
-	};
+    mesh->mNormals = {
+        Vector3::Backward,
+        Vector3::Backward,
+        Vector3::Backward,
+        Vector3::Backward,
+        Vector3::Forward,
+        Vector3::Forward,
+        Vector3::Forward,
+        Vector3::Forward,
+    };
 
     mesh->mTextureCoordinates = { {
-		{ 0.f, 0.f, 0.f }, // tl
-		{ 1.f, 0.f, 0.f }, // tr
-		{ 0.f, 1.f, 0.f }, // bl
-		{ 1.f, 1.f, 0.f }, // br
-		{ 0.f, 0.f, 0.f }, // tl
-		{ 1.f, 0.f, 0.f }, // tr
-		{ 0.f, 1.f, 0.f }, // bl
-		{ 1.f, 1.f, 0.f }, // br
+        { 0.f, 0.f, 0.f }, // tl
+        { 1.f, 0.f, 0.f }, // tr
+        { 0.f, 1.f, 0.f }, // bl
+        { 1.f, 1.f, 0.f }, // br
+        { 0.f, 0.f, 0.f }, // tl
+        { 1.f, 0.f, 0.f }, // tr
+        { 0.f, 1.f, 0.f }, // bl
+        { 1.f, 1.f, 0.f }, // br
     } };
     
     return mesh;
@@ -57,231 +57,231 @@ using namespace std;
 
 /*static*/ shared_ptr<Mesh> Mesh::CreateCube()
 {
-	const static std::vector<Vector3> uniqueUVs = {
-		{ 0.f, 1.f, 0.f }, // tl
-		{ 1.f, 1.f, 0.f }, // tr
-		{ 0.f, 0.f, 0.f }, // bl
-		{ 1.f, 0.f, 0.f }, // br
-	};
+    const static std::vector<Vector3> uniqueUVs = {
+        { 0.f, 1.f, 0.f }, // tl
+        { 1.f, 1.f, 0.f }, // tr
+        { 0.f, 0.f, 0.f }, // bl
+        { 1.f, 0.f, 0.f }, // br
+    };
 
-	const static std::vector<Vector3> uniqueVerts = {
-		{ -0.5f,  0.5f,  0.5f }, // 0
-		{  0.5f,  0.5f,  0.5f }, // 1
-		{ -0.5f, -0.5f,  0.5f }, // 2
-		{  0.5f, -0.5f,  0.5f }, // 3
-		
-		{ -0.5f,  0.5f, -0.5f }, // 4
-		{  0.5f,  0.5f, -0.5f }, // 5
-		{ -0.5f, -0.5f, -0.5f }, // 6
-		{  0.5f, -0.5f, -0.5f }, // 7
-	};
+    const static std::vector<Vector3> uniqueVerts = {
+        { -0.5f,  0.5f,  0.5f }, // 0
+        {  0.5f,  0.5f,  0.5f }, // 1
+        { -0.5f, -0.5f,  0.5f }, // 2
+        {  0.5f, -0.5f,  0.5f }, // 3
+        
+        { -0.5f,  0.5f, -0.5f }, // 4
+        {  0.5f,  0.5f, -0.5f }, // 5
+        { -0.5f, -0.5f, -0.5f }, // 6
+        {  0.5f, -0.5f, -0.5f }, // 7
+    };
 
-	// tl, tr, bl
-	// bl, tr, br
-	const static vector<UInt32> instancedVerts = {
-		0, 1, 2, // front
-		2, 1, 3,
-		5, 4, 7, // back
-		7, 4, 6,
-		4, 0, 6, // left
-		6, 0, 2,
-		1, 5, 3, // right
-		3, 5, 7,
-		4, 5, 0, // top
-		0, 5, 1,
-		2, 3, 6, // bottom
-		6, 3, 7,
-	};
+    // tl, tr, bl
+    // bl, tr, br
+    const static vector<UInt32> instancedVerts = {
+        0, 1, 2, // front
+        2, 1, 3,
+        5, 4, 7, // back
+        7, 4, 6,
+        4, 0, 6, // left
+        6, 0, 2,
+        1, 5, 3, // right
+        3, 5, 7,
+        4, 5, 0, // top
+        0, 5, 1,
+        2, 3, 6, // bottom
+        6, 3, 7,
+    };
 
-	// tl, tr, bl
-	// bl, tr, br
-	const static vector<UInt32> instancedUVs = {
-		0, 1, 2,
-		2, 1, 3,
-	};
+    // tl, tr, bl
+    // bl, tr, br
+    const static vector<UInt32> instancedUVs = {
+        0, 1, 2,
+        2, 1, 3,
+    };
 
-	const static std::vector<Vector3> uniqueNormals = {
-		Vector3::Backward,
-		Vector3::Forward,
-		Vector3::Left,
-		Vector3::Right,
-		Vector3::Up,
-		Vector3::Down,
-	};
+    const static std::vector<Vector3> uniqueNormals = {
+        Vector3::Backward,
+        Vector3::Forward,
+        Vector3::Left,
+        Vector3::Right,
+        Vector3::Up,
+        Vector3::Down,
+    };
 
-	shared_ptr<Mesh> mesh = make_shared<Mesh>();
+    shared_ptr<Mesh> mesh = make_shared<Mesh>();
 
-	mesh->mTextureCoordinates.resize(1); // push an empty first set of UVs we can fill
+    mesh->mTextureCoordinates.resize(1); // push an empty first set of UVs we can fill
 
-	for (UInt32 i = 0; i < instancedVerts.size(); ++i)
-	{
-		mesh->mVertices.push_back(uniqueVerts[instancedVerts[i]]);
-		mesh->mIndices.push_back(i);
-		mesh->mTextureCoordinates.front().push_back(uniqueUVs[instancedUVs[i % 6]]);
-		mesh->mNormals.push_back(uniqueNormals[i / 6]);
-	}
+    for (UInt32 i = 0; i < instancedVerts.size(); ++i)
+    {
+        mesh->mVertices.push_back(uniqueVerts[instancedVerts[i]]);
+        mesh->mIndices.push_back(i);
+        mesh->mTextureCoordinates.front().push_back(uniqueUVs[instancedUVs[i % 6]]);
+        mesh->mNormals.push_back(uniqueNormals[i / 6]);
+    }
 
-	return mesh;
+    return mesh;
 }
 
 /*static*/ shared_ptr<Mesh> Mesh::CreateUnwrappedCube()
-{	
-	//    [ ]
-	// [ ][ ][ ][ ]
-	//    [ ]
+{    
+    //    [ ]
+    // [ ][ ][ ][ ]
+    //    [ ]
 
-	auto uv = [](int row, int column) -> Vector3 {
-		return { float(column) / 4.f, float(row) / 3.f, 0.f };
-	};
+    auto uv = [](int row, int column) -> Vector3 {
+        return { float(column) / 4.f, float(row) / 3.f, 0.f };
+    };
 
-	const static std::vector<Vector3> uniqueVerts = {
-		{ -0.5f,  0.5f,  0.5f }, // 0
-		{  0.5f,  0.5f,  0.5f }, // 1
-		{ -0.5f, -0.5f,  0.5f }, // 2
-		{  0.5f, -0.5f,  0.5f }, // 3
+    const static std::vector<Vector3> uniqueVerts = {
+        { -0.5f,  0.5f,  0.5f }, // 0
+        {  0.5f,  0.5f,  0.5f }, // 1
+        { -0.5f, -0.5f,  0.5f }, // 2
+        {  0.5f, -0.5f,  0.5f }, // 3
 
-		{ -0.5f,  0.5f, -0.5f }, // 4
-		{  0.5f,  0.5f, -0.5f }, // 5
-		{ -0.5f, -0.5f, -0.5f }, // 6
-		{  0.5f, -0.5f, -0.5f }, // 7
-	};
+        { -0.5f,  0.5f, -0.5f }, // 4
+        {  0.5f,  0.5f, -0.5f }, // 5
+        { -0.5f, -0.5f, -0.5f }, // 6
+        {  0.5f, -0.5f, -0.5f }, // 7
+    };
 
-	// tl, tr, bl
-	// bl, tr, br
-	const static vector<UInt32> instancedVerts = {
-		0, 1, 2, // front
-		2, 1, 3,
-		5, 4, 7, // back
-		7, 4, 6,
-		4, 0, 6, // left
-		6, 0, 2,
-		1, 5, 3, // right
-		3, 5, 7,
-		4, 5, 0, // top
-		0, 5, 1,
-		2, 3, 6, // bottom
-		6, 3, 7,
-	};
+    // tl, tr, bl
+    // bl, tr, br
+    const static vector<UInt32> instancedVerts = {
+        0, 1, 2, // front
+        2, 1, 3,
+        5, 4, 7, // back
+        7, 4, 6,
+        4, 0, 6, // left
+        6, 0, 2,
+        1, 5, 3, // right
+        3, 5, 7,
+        4, 5, 0, // top
+        0, 5, 1,
+        2, 3, 6, // bottom
+        6, 3, 7,
+    };
 
-	// tl, tr, bl
-	// bl, tr, br
-	const static vector<Vector3> uvs = {
-		uv(1, 2), uv(1, 3), uv(2, 2), // front
-		uv(2, 2), uv(1, 3), uv(2, 3),
+    // tl, tr, bl
+    // bl, tr, br
+    const static vector<Vector3> uvs = {
+        uv(1, 2), uv(1, 3), uv(2, 2), // front
+        uv(2, 2), uv(1, 3), uv(2, 3),
 
-		uv(1, 0), uv(1, 1), uv(2, 0), // back
-		uv(2, 0), uv(1, 1), uv(2, 1),
+        uv(1, 0), uv(1, 1), uv(2, 0), // back
+        uv(2, 0), uv(1, 1), uv(2, 1),
 
-		uv(1, 1), uv(1, 2), uv(2, 1), // left
-		uv(2, 1), uv(1, 2), uv(2, 2),
+        uv(1, 1), uv(1, 2), uv(2, 1), // left
+        uv(2, 1), uv(1, 2), uv(2, 2),
 
-		uv(1, 3), uv(1, 4), uv(2, 3), // right
-		uv(2, 3), uv(1, 4), uv(2, 4),
+        uv(1, 3), uv(1, 4), uv(2, 3), // right
+        uv(2, 3), uv(1, 4), uv(2, 4),
 
-		uv(0, 1), uv(0, 2), uv(1, 1), // top
-		uv(1, 1), uv(0, 2), uv(1, 2),
+        uv(0, 1), uv(0, 2), uv(1, 1), // top
+        uv(1, 1), uv(0, 2), uv(1, 2),
 
-		uv(2, 1), uv(2, 2), uv(3, 1), // bottom
-		uv(3, 1), uv(2, 2), uv(3, 2),
-	};
+        uv(2, 1), uv(2, 2), uv(3, 1), // bottom
+        uv(3, 1), uv(2, 2), uv(3, 2),
+    };
 
-	const static std::vector<Vector3> uniqueNormals = {
-		Vector3::Backward,
-		Vector3::Forward,
-		Vector3::Left,
-		Vector3::Right,
-		Vector3::Up,
-		Vector3::Down,
-	};
+    const static std::vector<Vector3> uniqueNormals = {
+        Vector3::Backward,
+        Vector3::Forward,
+        Vector3::Left,
+        Vector3::Right,
+        Vector3::Up,
+        Vector3::Down,
+    };
 
-	shared_ptr<Mesh> mesh = make_shared<Mesh>();
+    shared_ptr<Mesh> mesh = make_shared<Mesh>();
 
-	for (UInt32 i = 0; i < instancedVerts.size(); ++i)
-	{
-		mesh->mVertices.push_back(uniqueVerts[instancedVerts[i]]);
-		mesh->mIndices.push_back(i);
-		mesh->mNormals.push_back(uniqueNormals[i / 6]);
-	}
+    for (UInt32 i = 0; i < instancedVerts.size(); ++i)
+    {
+        mesh->mVertices.push_back(uniqueVerts[instancedVerts[i]]);
+        mesh->mIndices.push_back(i);
+        mesh->mNormals.push_back(uniqueNormals[i / 6]);
+    }
 
-	mesh->mTextureCoordinates.push_back(uvs);
+    mesh->mTextureCoordinates.push_back(uvs);
 
-	return mesh;
+    return mesh;
 }
 
 std::shared_ptr<Mesh> Mesh::CreateUVSphere()
 {
-	float radius = .5f;
-	int widthSegments = 64;
-	int heightSegments = 64;
+    float radius = .5f;
+    int widthSegments = 64;
+    int heightSegments = 64;
 
-	float phiStart = 0;
-	float phiLength = PI * 2.f;
-	float thetaStart = 0;
-	float thetaLength = PI;
-	float thetaEnd = thetaStart + thetaLength;
+    float phiStart = 0;
+    float phiLength = PI * 2.f;
+    float thetaStart = 0;
+    float thetaLength = PI;
+    float thetaEnd = thetaStart + thetaLength;
 
-	shared_ptr<Mesh> mesh = make_shared<Mesh>();
+    shared_ptr<Mesh> mesh = make_shared<Mesh>();
 
-	mesh->mTextureCoordinates.resize(1); // push an empty first set of UVs we can fill
+    mesh->mTextureCoordinates.resize(1); // push an empty first set of UVs we can fill
 
-	int index = 0;
-	vector<vector<int>> grid; // 2d array of x, y to vertex index
-	for (int x = 0; x <= widthSegments; ++x)
-	{
-		float v = float(x) / widthSegments;
+    int index = 0;
+    vector<vector<int>> grid; // 2d array of x, y to vertex index
+    for (int x = 0; x <= widthSegments; ++x)
+    {
+        float v = float(x) / widthSegments;
 
-		vector<int> rowIndexes;
+        vector<int> rowIndexes;
 
-		for (int y = 0; y <= heightSegments; ++y)
-		{
-			float u = float(y) / heightSegments;
+        for (int y = 0; y <= heightSegments; ++y)
+        {
+            float u = float(y) / heightSegments;
 
-			Vector3 vertex;
+            Vector3 vertex;
 
-			vertex.x = radius * cos(phiStart + u * phiLength) * sin(thetaStart + v * thetaLength);
-			vertex.y = radius * cos(thetaStart + v * thetaLength);
-			vertex.z = radius * sin(phiStart + u * phiLength) * sin(thetaStart + v * thetaLength);
+            vertex.x = radius * cos(phiStart + u * phiLength) * sin(thetaStart + v * thetaLength);
+            vertex.y = radius * cos(thetaStart + v * thetaLength);
+            vertex.z = radius * sin(phiStart + u * phiLength) * sin(thetaStart + v * thetaLength);
 
-			Vector3 normal = vertex;
-			normal.Normalize();
+            Vector3 normal = vertex;
+            normal.Normalize();
 
-			mesh->mVertices.push_back(vertex);
-			mesh->mNormals.push_back(normal);
-			mesh->mTextureCoordinates.back().push_back({ 1 - u, v, 0.f });
+            mesh->mVertices.push_back(vertex);
+            mesh->mNormals.push_back(normal);
+            mesh->mTextureCoordinates.back().push_back({ 1 - u, v, 0.f });
 
-			rowIndexes.push_back(index);
-			++index;
-		}
+            rowIndexes.push_back(index);
+            ++index;
+        }
 
-		grid.push_back(rowIndexes);
-	}
+        grid.push_back(rowIndexes);
+    }
 
-	// build index buffer
-	for (int x = 0; x < widthSegments; ++x)
-	{
-		for (int y = 0; y < heightSegments; ++y)
-		{
-			int a = grid[y][x + 1];
-			int b = grid[y][x];
-			int c = grid[y + 1][x];
-			int d = grid[y + 1][x + 1];
+    // build index buffer
+    for (int x = 0; x < widthSegments; ++x)
+    {
+        for (int y = 0; y < heightSegments; ++y)
+        {
+            int a = grid[y][x + 1];
+            int b = grid[y][x];
+            int c = grid[y + 1][x];
+            int d = grid[y + 1][x + 1];
 
-			if (y != 0 || thetaStart > 0)
-			{
-				mesh->mIndices.push_back(a);
-				mesh->mIndices.push_back(b);
-				mesh->mIndices.push_back(d);
-			}
-			if (y != heightSegments - 1 || thetaEnd < PI)
-			{
-				mesh->mIndices.push_back(b);
-				mesh->mIndices.push_back(c);
-				mesh->mIndices.push_back(d);
-			}
-		}
-	}
+            if (y != 0 || thetaStart > 0)
+            {
+                mesh->mIndices.push_back(a);
+                mesh->mIndices.push_back(b);
+                mesh->mIndices.push_back(d);
+            }
+            if (y != heightSegments - 1 || thetaEnd < PI)
+            {
+                mesh->mIndices.push_back(b);
+                mesh->mIndices.push_back(c);
+                mesh->mIndices.push_back(d);
+            }
+        }
+    }
 
-	return mesh;
+    return mesh;
 }
 
 
@@ -362,5 +362,5 @@ void Mesh::CreateIndexBuffer(ID3D11Device* device, ID3D11Buffer** indexBuffer)
     HRESULT hr = device->CreateBuffer(&indexBufferDesc, &indexSubResourceData, indexBuffer);
     ThrowIfFailed(hr, CreateBuffer);
 
-	SetDebugObjectName(*indexBuffer, "Index Buffer");
+    SetDebugObjectName(*indexBuffer, "Index Buffer");
 }

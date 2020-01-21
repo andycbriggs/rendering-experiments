@@ -11,15 +11,15 @@ class CameraComponent : public Component
 {
 public:
     virtual void OnInitialise() override;
-	virtual void OnUpdate(const TimerTime& time) override;
+    virtual void OnUpdate(const TimerTime& time) override;
     virtual void OnWindowSizeChanged() override;
 
-	const Matrix& GetViewProjectionMatrix() const;
+    const Matrix& GetViewProjectionMatrix() const;
 
 private:
     void UpdateViewMatrix();
     void UpdateProjectionMatrix();
-	void UpdateViewProjectionMatrix();
+    void UpdateViewProjectionMatrix();
 
 protected:
     float mFieldOfView = toRadians(50.f);
@@ -27,7 +27,7 @@ protected:
     float mFarPlaneDistance = 10000.f;
 
 private:
-	Matrix mViewMatrix;
+    Matrix mViewMatrix;
     Matrix mProjectionMatrix;
-	Matrix mViewProjectionMatrix;
+    Matrix mViewProjectionMatrix;
 };

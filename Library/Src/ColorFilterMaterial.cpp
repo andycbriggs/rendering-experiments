@@ -12,15 +12,15 @@ using namespace std;
 
 void ColorFilterMaterial::Initialise()
 {
-	mEffect = make_unique<Effect>(L"Content\\Effects\\ColorFilter.cso");
+    mEffect = make_unique<Effect>(L"Content\\Effects\\ColorFilter.cso");
 
-	// Create input layouts for all techniques
-	// TODO: Why not just do this for everything?
-	for (auto& technique : mEffect->GetTechniques())
-	{
-		for (auto& pass : technique->GetPasses())
-		{
-			CreateInputLayout(technique->GetName(), pass->GetName(), VertexPositionTexture::InputElements, VertexPositionTexture::InputElementCount);
-		}
-	}
+    // Create input layouts for all techniques
+    // TODO: Why not just do this for everything?
+    for (auto& technique : mEffect->GetTechniques())
+    {
+        for (auto& pass : technique->GetPasses())
+        {
+            CreateInputLayout(technique->GetName(), pass->GetName(), VertexPositionTexture::InputElements, VertexPositionTexture::InputElementCount);
+        }
+    }
 }

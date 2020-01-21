@@ -12,5 +12,5 @@ public:
     void CreateVertexBuffer(Mesh* mesh, ID3D11Buffer** vertexBuffer) override;
     UInt32 VertexSize() const override;
 
-	virtual void SetInputTexture(const Texture2D* texture);
+    virtual void SetInputTexture(const Texture2D* texture);
 };

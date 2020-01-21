@@ -43,6 +43,6 @@ UInt32 PostProcessingMaterial::VertexSize() const
 
 void PostProcessingMaterial::SetInputTexture(const Texture2D* texture)
 {
-	EffectVariable* inputTexture = mEffect->GetVariable("InputTexture");
-	inputTexture->SetValue(texture->GetShaderResourceView());
+    EffectVariable* inputTexture = mEffect->GetVariable("InputTexture");
+    inputTexture->SetValue(texture->GetShaderResourceView());
 }

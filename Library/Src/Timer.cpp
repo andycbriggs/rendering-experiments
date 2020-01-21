@@ -20,7 +20,7 @@ TimerTime Timer::GetTime()
 {
     ::QueryPerformanceCounter(&mCurrentTime);
 
-	TimerTime time = {
+    TimerTime time = {
         double(mCurrentTime.QuadPart - mLastTime.QuadPart) / mFrequency.QuadPart, // elapsed time
         double(mCurrentTime.QuadPart - mStartTime.QuadPart) / mFrequency.QuadPart // total time
     };

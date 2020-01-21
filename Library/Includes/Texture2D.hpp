@@ -18,12 +18,12 @@ public:
     ID3D11Texture2D* GetTexture2D() const { return mTexture2D.Get(); }
     ID3D11Resource* GetResource() const { return mResource.Get(); }
 
-	UInt32 GetWidth() const { return mWidth; }
-	UInt32 GetHeight() const { return mHeight; }
+    UInt32 GetWidth() const { return mWidth; }
+    UInt32 GetHeight() const { return mHeight; }
 
 private:
-	UInt32 mWidth = -1;
-	UInt32 mHeight = -1;
+    UInt32 mWidth = -1;
+    UInt32 mHeight = -1;
 
     ComPtr<ID3D11ShaderResourceView> mShaderResourceView;
     ComPtr<ID3D11Texture2D> mTexture2D;
