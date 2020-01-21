@@ -16,8 +16,8 @@ public:
     void OnUpdate(const TimerTime& time) override;
     void OnDraw(const RenderState& renderState) override;
 
-	void SetMesh(std::shared_ptr<Mesh>& mesh);
-	void SetTexture(std::shared_ptr<Texture2D>& texture);
+    void SetMesh(std::shared_ptr<Mesh>& mesh);
+    void SetTexture(std::shared_ptr<Texture2D>& texture);
 
 private:
     std::shared_ptr<PhongMaterial> mMaterial;

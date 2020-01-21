@@ -47,8 +47,8 @@ SamplerState ColorSampler
 
 RasterizerState RasterState
 {
-	CullMode = Back;
-	//FillMode = Wireframe;
+    CullMode = Back;
+    //FillMode = Wireframe;
 };
 
 // Shaders
@@ -58,7 +58,7 @@ VS_OUTPUT VSMain(VS_INPUT IN)
     VS_OUTPUT OUT = (VS_OUTPUT)0;
 
     OUT.Position = mul(IN.Position, WorldViewProjection);
-	OUT.WorldNormal = normalize(mul(IN.Normal, (float3x3)World));
+    OUT.WorldNormal = normalize(mul(IN.Normal, (float3x3)World));
     OUT.TextureCoordinate = IN.TextureCoordinate;
     OUT.DirectionalLightDirection = -DirectionalLightDirection;
     OUT.VertexWorldPosition = mul(IN.Position, World).xyz;
@@ -87,7 +87,7 @@ float4 PSMain(VS_OUTPUT IN) : SV_Target
     
     // point light
     float3 pointLightDirection = normalize(PointLightPosition - IN.VertexWorldPosition);
-	float normalDotPointLightDirection = dot(worldNormal, pointLightDirection);
+    float normalDotPointLightDirection = dot(worldNormal, pointLightDirection);
     float3 viewDirection = normalize(CameraTranslation - IN.VertexWorldPosition);
     float worldNormalDotLightDirection = dot(worldNormal, pointLightDirection);
     float3 halfVector = normalize(pointLightDirection + viewDirection);
@@ -99,7 +99,7 @@ float4 PSMain(VS_OUTPUT IN) : SV_Target
     float3 ambientColor = (AmbientLightColor.rgb * AmbientLightColor.a) * textureColor.rgb;
 
     OUT.rgb = ambientColor + directionalColor + pointColor;
-	OUT.a = textureColor.a;
+    OUT.a = textureColor.a;
 
     return OUT;
 }
@@ -108,7 +108,7 @@ technique11 main11
 {
     pass p0
     {
-		SetRasterizerState(RasterState);
+        SetRasterizerState(RasterState);
         SetVertexShader(CompileShader(vs_5_0, VSMain()));
         SetGeometryShader(NULL);
         SetPixelShader(CompileShader(ps_5_0, PSMain()));

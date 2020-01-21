@@ -31,14 +31,14 @@ Engine::~Engine()
 
 void Engine::Initialise()
 {
-	InitialiseWindow();
-	CreateDevice();
-	CreateSizeDependentResources();
+    InitialiseWindow();
+    CreateDevice();
+    CreateSizeDependentResources();
 }
 
 void Engine::Run()
 {
-	mRootComponent->Initialise();
+    mRootComponent->Initialise();
     Loop();
     ShutdownDirectX();
     DestroyWindow();
@@ -46,24 +46,24 @@ void Engine::Run()
 
 void Engine::SetRootComponent(Component* component) 
 { 
-	mRootComponent = unique_ptr<Component>(component);
+    mRootComponent = unique_ptr<Component>(component);
 }
 
 void Engine::Update(const TimerTime& time)
 {
     if (mRootComponent)
-		mRootComponent->Update(time);
+        mRootComponent->Update(time);
 }
 
 void Engine::Draw()
 {
-	// setup render state
-	mRenderState.deviceContext = mDeviceContext.Get();
-	mRenderState.viewProjectionMatrix = mCurrentCamera->GetViewProjectionMatrix();
-	mRenderState.cameraTranslation = mCurrentCamera->GetGlobalTranslation();
+    // setup render state
+    mRenderState.deviceContext = mDeviceContext.Get();
+    mRenderState.viewProjectionMatrix = mCurrentCamera->GetViewProjectionMatrix();
+    mRenderState.cameraTranslation = mCurrentCamera->GetGlobalTranslation();
 
     if (mRootComponent)
-		mRootComponent->Draw(mRenderState);
+        mRootComponent->Draw(mRenderState);
 }
 
 LRESULT WINAPI Engine::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -150,7 +150,7 @@ void Engine::Loop()
         HRESULT hr = mSwapChain->Present(1, 0);
         ThrowIfFailed(hr, Present);
 
-		mDeviceContext->ClearState();
+        mDeviceContext->ClearState();
     }
 }
 
@@ -200,13 +200,13 @@ void Engine::OnDeviceLost()
 
 void Engine::OnWindowSizeChanged(unsigned int width, unsigned int height)
 {
-	// Setup the viewport
-	mViewport = Viewport(0.f, 0.f, float(width), float(height));
+    // Setup the viewport
+    mViewport = Viewport(0.f, 0.f, float(width), float(height));
 
     CreateSizeDependentResources();
 
     if (mRootComponent)
-		mRootComponent->WindowSizeChanged(); // allow cameras to recalculate projection matrix
+        mRootComponent->WindowSizeChanged(); // allow cameras to recalculate projection matrix
 }
 
 void Engine::CreateDevice()
@@ -258,7 +258,7 @@ void Engine::CreateDevice()
     ThrowIfFailed(hr, CreateSwapChainForHwnd);
 
     mCommonStates = make_unique<CommonStates>(mDevice.Get());
-	mRenderState.commonStates = mCommonStates.get();
+    mRenderState.commonStates = mCommonStates.get();
 }
 
 void Engine::CreateSizeDependentResources()
@@ -275,8 +275,8 @@ void Engine::CreateSizeDependentResources()
 
     // Resize buffers
 
-	UINT width = UINT(mViewport.width);
-	UINT height = UINT(mViewport.height);
+    UINT width = UINT(mViewport.width);
+    UINT height = UINT(mViewport.height);
      
     HRESULT hr = 0;
 
@@ -296,8 +296,8 @@ void Engine::CreateSizeDependentResources()
     hr = mDevice->CreateRenderTargetView(backBuffer.Get(), nullptr, mRenderTargetView.ReleaseAndGetAddressOf());
     ThrowIfFailed(hr, CreateRenderTargetView);
 
-	SetDebugObjectName(mRenderTargetView.Get(), "Main Render Target View");
-	SetDebugObjectName(backBuffer.Get(), "Main Back Buffer");
+    SetDebugObjectName(mRenderTargetView.Get(), "Main Render Target View");
+    SetDebugObjectName(backBuffer.Get(), "Main Back Buffer");
 
     // Create depth stencil
 
@@ -316,14 +316,14 @@ void Engine::CreateSizeDependentResources()
     hr = mDevice->CreateDepthStencilView(mDepthStencilBuffer.Get(), nullptr, mDepthStencilView.ReleaseAndGetAddressOf());
     ThrowIfFailed(hr, CreateTexture2D);
 
-	SetDebugObjectName(mDepthStencilView.Get(), "Main Depth Stencil View");
-	SetDebugObjectName(mDepthStencilBuffer.Get(), "Main Depth Stencil");
+    SetDebugObjectName(mDepthStencilView.Get(), "Main Depth Stencil View");
+    SetDebugObjectName(mDepthStencilBuffer.Get(), "Main Depth Stencil");
 }
 
 void Engine::ShutdownDirectX()
 {
     mCommonStates = nullptr;
-	mRenderState.commonStates = nullptr;
+    mRenderState.commonStates = nullptr;
 
     if (mSwapChain)
         mSwapChain->SetFullscreenState(FALSE, nullptr);
@@ -333,8 +333,8 @@ void Engine::ShutdownDirectX()
     mRenderTargetView.Reset();
     mSwapChain.Reset();
 
-	if (mDeviceContext)
-	{
+    if (mDeviceContext)
+    {
         mDeviceContext->ClearState();
         mDeviceContext->Flush();
     }
@@ -358,5 +358,5 @@ void Engine::SetDefaultRenderTargets()
 {
     mDeviceContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
     mDeviceContext->RSSetViewports(1, mViewport.Get11());
-	mDeviceContext->OMSetBlendState(mCommonStates->AlphaBlend(), NULL, 0xffffff);
+    mDeviceContext->OMSetBlendState(mCommonStates->AlphaBlend(), NULL, 0xffffff);
 }

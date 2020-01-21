@@ -29,12 +29,12 @@ public:
     Engine(const std::wstring& windowClass, const std::wstring& windowName);
     virtual ~Engine();
 
-	void Initialise();
+    void Initialise();
     void Run();
 
-	void SetRootComponent(Component* component);
-	void SetCurrentCamera(CameraComponent* camera) { mCurrentCamera = camera; }
-	void SetClearColor(Color color) { mClearColor = color; }
+    void SetRootComponent(Component* component);
+    void SetCurrentCamera(CameraComponent* camera) { mCurrentCamera = camera; }
+    void SetClearColor(Color color) { mClearColor = color; }
 
 protected:
     virtual void Update(const TimerTime& time);
@@ -56,7 +56,7 @@ private:
     void ShutdownDirectX();
 
 public:
-	const Viewport& GetViewport() const { return mViewport; }
+    const Viewport& GetViewport() const { return mViewport; }
 
     ID3D11Device* Device() const { return mDevice.Get(); };
     ID3D11DeviceContext* DeviceContext() const { return mDeviceContext.Get(); };
@@ -65,14 +65,14 @@ public:
 
 protected:
     std::unique_ptr<Component> mRootComponent;
-	CameraComponent* mCurrentCamera;
+    CameraComponent* mCurrentCamera;
 
     DirectX::Keyboard mKeyboard;
-	DirectX::Mouse mMouse;
+    DirectX::Mouse mMouse;
     std::unique_ptr<DirectX::CommonStates> mCommonStates;
 
     Viewport mViewport;
-	Color mClearColor = Colors::Black;
+    Color mClearColor = Colors::Black;
 
     std::wstring mWindowClass;
     std::wstring mWindowName;
@@ -80,7 +80,7 @@ protected:
     HWND mHwnd = NULL;
     WNDCLASS mWndClass = { };
 
-	RenderState mRenderState;
+    RenderState mRenderState;
 
     ComPtr<IDXGIFactory2> mFactory;
     ComPtr<IDXGISwapChain1> mSwapChain;
